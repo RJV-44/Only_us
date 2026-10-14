@@ -1,15 +1,5 @@
-class Conversation {
-  const Conversation({
-    required this.id,
-    required this.title,
-    required this.participantIds,
-    this.lastMessage,
-    this.updatedAt,
-  });
+import 'conversation_model.dart';
 
-  final String id;
-  final String title;
-  final List<String> participantIds;
-  final String? lastMessage;
-  final DateTime? updatedAt;
-}
+export 'conversation_model.dart';
+
+typedef Conversation = ConversationModel;

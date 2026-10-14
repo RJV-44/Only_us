@@ -26,6 +26,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Only Us uses the camera when you choose to take a photo to share.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Only Us lets you choose a photo to preview and share.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

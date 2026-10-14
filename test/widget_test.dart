@@ -18,7 +18,7 @@ void main() {
     await tester.pumpWidget(const OnlyUsApp());
     await tester.tap(find.text('Get started'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Explore the app structure'));
+    await tester.tap(find.text('Try the chat preview'));
     await tester.pumpAndSettle();
 
     expect(find.text('Preview only — messages are not saved.'), findsOneWidget);
@@ -27,5 +27,28 @@ void main() {
     await tester.pump();
 
     expect(find.text('Hi there'), findsOneWidget);
+  });
+
+  testWidgets('registration validates password confirmation', (tester) async {
+    await tester.pumpWidget(const OnlyUsApp());
+    await tester.tap(find.text('Get started'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Create an account'));
+    await tester.pumpAndSettle();
+
+    final fields = find.byType(TextFormField);
+    await tester.enterText(fields.at(1), 'a@b.com');
+    await tester.enterText(fields.at(2), 'password123');
+    await tester.enterText(fields.at(3), 'password456');
+    final confirmationField = tester.widget<TextFormField>(fields.at(3));
+    expect(
+      confirmationField.validator!('password456'),
+      'Passwords do not match.',
+    );
+    await tester.ensureVisible(find.byType(FilledButton));
+    await tester.tap(find.byType(FilledButton));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Passwords do not match.'), findsOneWidget);
   });
 }

@@ -16,4 +16,15 @@ class NotificationService {
       'platform': platform,
     }, onConflict: 'user_id,token');
   }
+
+  Future<void> removeDeviceToken({
+    required String userId,
+    required String token,
+  }) async {
+    await _client
+        .from('device_tokens')
+        .delete()
+        .eq('user_id', userId)
+        .eq('token', token);
+  }
 }

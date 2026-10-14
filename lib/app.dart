@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/constants/app_constants.dart';
 import 'core/theme/app_theme.dart';
 import 'routing/app_router.dart';
 
 class OnlyUsApp extends StatelessWidget {
-  const OnlyUsApp({super.key});
+  const OnlyUsApp({this.supabaseClient, super.key});
+
+  final SupabaseClient? supabaseClient;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,10 @@ class OnlyUsApp extends StatelessWidget {
       title: AppConstants.appName,
       theme: AppTheme.light,
       initialRoute: AppRouter.splash,
-      onGenerateRoute: AppRouter.onGenerateRoute,
+      onGenerateRoute: (settings) => AppRouter.onGenerateRoute(
+        settings,
+        supabaseClient: supabaseClient,
+      ),
     );
   }
 }

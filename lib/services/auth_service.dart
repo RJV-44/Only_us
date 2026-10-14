@@ -7,12 +7,14 @@ class AuthService {
 
   User? get currentUser => _client.auth.currentUser;
 
+  Stream<AuthState> get authStateChanges => _client.auth.onAuthStateChange;
+
   Future<AuthResponse> signIn({
     required String email,
     required String password,
   }) {
     return _client.auth.signInWithPassword(
-      email: email,
+      email: email.trim(),
       password: password,
     );
   }
@@ -20,8 +22,14 @@ class AuthService {
   Future<AuthResponse> signUp({
     required String email,
     required String password,
+    String? displayName,
   }) {
-    return _client.auth.signUp(email: email, password: password);
+    final name = displayName?.trim();
+    return _client.auth.signUp(
+      email: email.trim(),
+      password: password,
+      data: name == null || name.isEmpty ? null : {'display_name': name},
+    );
   }
 
   Future<void> signOut() => _client.auth.signOut();

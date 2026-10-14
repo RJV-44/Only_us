@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app.dart';
+import 'config/supabase_config.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const OnlyUsApp());
+
+  if (!SupabaseConfig.isConfigured) {
+    runApp(const OnlyUsApp());
+    return;
+  }
+
+  await Supabase.initialize(
+    url: SupabaseConfig.url,
+    publishableKey: SupabaseConfig.publishableKey,
+  );
+  runApp(OnlyUsApp(supabaseClient: Supabase.instance.client));
 }

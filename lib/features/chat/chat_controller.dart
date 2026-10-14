@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../../models/message_model.dart';
 import '../../services/chat_service.dart';
 
 class ChatController extends ChangeNotifier {
@@ -7,8 +8,8 @@ class ChatController extends ChangeNotifier {
 
   final ChatService _chatService;
 
-  Future<List<Map<String, dynamic>>> loadMessages(String conversationId) {
-    return _chatService.fetchMessages(conversationId);
+  Stream<List<MessageModel>> watchMessages(String conversationId) {
+    return _chatService.watchMessages(conversationId);
   }
 
   Future<void> sendMessage({

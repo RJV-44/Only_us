@@ -15,7 +15,7 @@ class MediaService {
   }) async {
     await _client.storage.from(bucket).uploadBinary(
           path,
-          bytes,
+          bytes,  
           fileOptions: FileOptions(contentType: contentType, upsert: false),
         );
     return _client.storage.from(bucket).getPublicUrl(path);

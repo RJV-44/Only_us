@@ -1,3 +1,5 @@
+import '../constants/app_constants.dart';
+
 abstract final class Validators {
   static String? email(String? value) {
     final input = value?.trim() ?? '';
@@ -10,7 +12,9 @@ abstract final class Validators {
 
   static String? password(String? value) {
     if (value == null || value.isEmpty) return 'Password is required.';
-    if (value.length < 8) return 'Use at least 8 characters.';
+    if (value.length < AppConstants.minimumPasswordLength) {
+      return 'Use at least ${AppConstants.minimumPasswordLength} characters.';
+    }
     return null;
   }
 }
